@@ -1,4 +1,6 @@
+import { array} from "prop-types";
 import React, { useEffect, useState } from "react";
+import {getAllToDos, updateToDos} from "../api";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
@@ -9,11 +11,14 @@ const Home = () => {
 	const [ToDos, setToDos] = useState([]);
 	const [previousToDos, setPreviousToDos] = useState(ToDos);
 	//const[inputValue, setInputValue] = useState("");
-	useEffect (()=>{
-		console.log("Run Once");
-		console.log(localStorage.getItem(localStorageKey));
-		let localStorageToDos=JSON.parse(localStorage.getItem(localStorageKey));
-		setToDos(localStorageToDos);
+	useEffect (async ()=>{
+		// console.log("Run Once");
+		// console.log(localStorage.getItem(localStorageKey));
+		// let localStorageToDos=JSON.parse(localStorage.getItem(localStorageKey));
+		// setToDos(localStorageToDos);
+		let apitodos = await getAllToDos();
+		setToDos(apitodos);
+		setPreviousToDos(apitodos);
 	},[]);
 
 	useEffect(()=>{
